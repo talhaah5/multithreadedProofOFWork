@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CryptoChain.Models;
+using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading;
@@ -8,7 +9,7 @@ namespace BlockchainDemo
     public class Blockchain
     {
         public IList<Block> Chain { set;  get; }
-        public int Difficulty { set; get; } = 3;
+        
 
         public Blockchain()
         {
@@ -24,7 +25,7 @@ namespace BlockchainDemo
 
         public Block CreateGenesisBlock()
         {
-            return new Block(DateTime.Now, null, "{}");
+            return Block.Genesis();
         }
 
         public void AddGenesisBlock()
@@ -40,11 +41,11 @@ namespace BlockchainDemo
 
         public void AddBlock(Block block)
         {
-            Block latestBlock = GetLatestBlock();
-            block.Index = latestBlock.Index + 1;
-            block.PreviousHash = latestBlock.Hash;
+            //Block latestBlock = GetLatestBlock();
+            //block.Index = latestBlock.Index + 1;
+            //block.PreviousHash = latestBlock.Hash;
             //new Thread(() => ).Start();
-            block.Mine(this.Difficulty);
+            //block.Mine(block.Difficulty);
             Chain.Add(block);
         }
 
@@ -55,15 +56,15 @@ namespace BlockchainDemo
                 Block currentBlock = Chain[i];
                 Block previousBlock = Chain[i - 1];
 
-                if (currentBlock.Hash != currentBlock.CalculateHash())
-                {
-                    return false;
-                }
+                //if (currentBlock.Hash != currentBlock.CalculateHash())
+                
+                    //return false;
+               
 
-                if (currentBlock.PreviousHash != previousBlock.Hash)
-                {
-                    return false;
-                }
+                //if (currentBlock.PreviousHash != previousBlock.Hash)
+                
+                    //return false;
+                
             }
             return true;
         }
